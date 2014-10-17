@@ -1,0 +1,59 @@
+%module bindings
+
+%feature("intern_function", "lispify");
+
+%insert("lisphead") %{
+(in-package :libuv)
+%}
+
+struct sockaddr_in {
+    short   sin_family;
+    unsigned short sin_port;
+
+    /* NOTE: should be unsigned long, but CFFI adds +4 to the offset if this
+       is a long, which really shouldn't happen. unsigned int seems to work on
+       all platforms, so until otherwise noted, this is how it's going to stay */
+    unsigned int sin_addr;
+    /*struct  in_addr sin_addr;*/
+    /*char    sin_zero[8];*/
+    char sin_zero_0;
+    char sin_zero_1;
+    char sin_zero_2;
+    char sin_zero_3;
+    char sin_zero_4;
+    char sin_zero_5;
+    char sin_zero_6;
+    char sin_zero_7;
+};
+
+struct sockaddr_in6 {
+    unsigned short sin6_family;
+    unsigned short sin6_port;
+    unsigned int sin6_flowinfo;
+    /* struct sin6_addr */
+    /* unsigned char s6_addr[16] */
+    unsigned char sin6_addr_0;
+    unsigned char sin6_addr_1;
+    unsigned char sin6_addr_2;
+    unsigned char sin6_addr_3;
+    unsigned char sin6_addr_4;
+    unsigned char sin6_addr_5;
+    unsigned char sin6_addr_6;
+    unsigned char sin6_addr_7;
+    unsigned char sin6_addr_8;
+    unsigned char sin6_addr_9;
+    unsigned char sin6_addr_10;
+    unsigned char sin6_addr_11;
+    unsigned char sin6_addr_12;
+    unsigned char sin6_addr_13;
+    unsigned char sin6_addr_14;
+    unsigned char sin6_addr_15;
+    unsigned int sin6_scope_id;
+};
+
+%include "/usr/local/include/uv/tree.h"
+%include "/usr/local/include/uv/uv-errno.h"
+%include "/usr/local/include/uv/uv-threadpool.h"
+%include "/usr/local/include/uv/uv-win.h"
+%include "/usr/local/include/uv/uv.h"
+
