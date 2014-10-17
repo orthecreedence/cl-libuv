@@ -2,12 +2,12 @@
 
 (defmacro make-accessors (c-struct)
   `(progn
-     ,@(loop for slot-name in (foreign-slot-names (intern (string c-struct) :libuv))
+     ,@(loop for slot-name in (foreign-slot-names `(:struct ,(intern (string c-struct) :libuv)))
              for accessor-name = (intern (concatenate 'string (symbol-name c-struct)
                                                       "-"
                                                       (symbol-name slot-name)))
              append (list `(defmacro ,accessor-name (ptr)
-                             (list 'foreign-slot-value ptr '',(intern (string c-struct) :libuv) '',slot-name))
+ (list 'foreign-slot-value ptr ''(:struct ,(intern (string c-struct) :libuv)) '',slot-name))
                           `(export ',accessor-name :libuv.accessors)))))
 
 (make-accessors #.(libuv::lispify "addrinfo" 'classname))
