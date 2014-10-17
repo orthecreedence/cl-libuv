@@ -14,6 +14,7 @@
 #define IPPROTO_TCP 6
 
 typedef unsigned long size_t;
+typedef unsigned long long uint64_t;
 
 struct addrinfo {
     int     ai_flags;

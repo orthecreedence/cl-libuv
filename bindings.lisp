@@ -416,7 +416,7 @@
 (cffi:defcfun ("uv_update_time" #.(lispify "uv_update_time" 'function)) :void
   (arg0 :pointer))
 
-(cffi:defcfun ("uv_now" #.(lispify "uv_now" 'function)) :pointer
+(cffi:defcfun ("uv_now" #.(lispify "uv_now" 'function)) :unsigned-long-long
   (arg0 :pointer))
 
 (cffi:defcfun ("uv_backend_fd" #.(lispify "uv_backend_fd" 'function)) :int
@@ -430,18 +430,18 @@
 	(#.(lispify "tv_nsec" 'slotname) :long))
 
 (cffi:defcstruct #.(lispify "uv_stat_t" 'classname)
-	(#.(lispify "st_dev" 'slotname) :pointer)
-	(#.(lispify "st_mode" 'slotname) :pointer)
-	(#.(lispify "st_nlink" 'slotname) :pointer)
-	(#.(lispify "st_uid" 'slotname) :pointer)
-	(#.(lispify "st_gid" 'slotname) :pointer)
-	(#.(lispify "st_rdev" 'slotname) :pointer)
-	(#.(lispify "st_ino" 'slotname) :pointer)
-	(#.(lispify "st_size" 'slotname) :pointer)
-	(#.(lispify "st_blksize" 'slotname) :pointer)
-	(#.(lispify "st_blocks" 'slotname) :pointer)
-	(#.(lispify "st_flags" 'slotname) :pointer)
-	(#.(lispify "st_gen" 'slotname) :pointer)
+	(#.(lispify "st_dev" 'slotname) :unsigned-long-long)
+	(#.(lispify "st_mode" 'slotname) :unsigned-long-long)
+	(#.(lispify "st_nlink" 'slotname) :unsigned-long-long)
+	(#.(lispify "st_uid" 'slotname) :unsigned-long-long)
+	(#.(lispify "st_gid" 'slotname) :unsigned-long-long)
+	(#.(lispify "st_rdev" 'slotname) :unsigned-long-long)
+	(#.(lispify "st_ino" 'slotname) :unsigned-long-long)
+	(#.(lispify "st_size" 'slotname) :unsigned-long-long)
+	(#.(lispify "st_blksize" 'slotname) :unsigned-long-long)
+	(#.(lispify "st_blocks" 'slotname) :unsigned-long-long)
+	(#.(lispify "st_flags" 'slotname) :unsigned-long-long)
+	(#.(lispify "st_gen" 'slotname) :unsigned-long-long)
 	(#.(lispify "st_atim" 'slotname) #.(lispify "uv_timespec_t" 'classname))
 	(#.(lispify "st_mtim" 'slotname) #.(lispify "uv_timespec_t" 'classname))
 	(#.(lispify "st_ctim" 'slotname) #.(lispify "uv_timespec_t" 'classname))
@@ -1023,9 +1023,9 @@
 	(#.(lispify "flags" 'slotname) :unsigned-int)
 	(#.(lispify "timer_cb" 'slotname) :pointer)
 	(#.(lispify "heap_node" 'slotname) :pointer)
-	(#.(lispify "timeout" 'slotname) :pointer)
-	(#.(lispify "repeat" 'slotname) :pointer)
-	(#.(lispify "start_id" 'slotname) :pointer))
+	(#.(lispify "timeout" 'slotname) :unsigned-long-long)
+	(#.(lispify "repeat" 'slotname) :unsigned-long-long)
+	(#.(lispify "start_id" 'slotname) :unsigned-long-long))
 
 (cffi:defcfun ("uv_timer_init" #.(lispify "uv_timer_init" 'function)) :int
   (arg0 :pointer)
@@ -1034,8 +1034,8 @@
 (cffi:defcfun ("uv_timer_start" #.(lispify "uv_timer_start" 'function)) :int
   (handle :pointer)
   (cb :pointer)
-  (timeout :pointer)
-  (repeat :pointer))
+  (timeout :unsigned-long-long)
+  (repeat :unsigned-long-long))
 
 (cffi:defcfun ("uv_timer_stop" #.(lispify "uv_timer_stop" 'function)) :int
   (handle :pointer))
@@ -1045,9 +1045,9 @@
 
 (cffi:defcfun ("uv_timer_set_repeat" #.(lispify "uv_timer_set_repeat" 'function)) :void
   (handle :pointer)
-  (repeat :pointer))
+  (repeat :unsigned-long-long))
 
-(cffi:defcfun ("uv_timer_get_repeat" #.(lispify "uv_timer_get_repeat" 'function)) :pointer
+(cffi:defcfun ("uv_timer_get_repeat" #.(lispify "uv_timer_get_repeat" 'function)) :unsigned-long-long
   (handle :pointer))
 
 (cffi:defcstruct #.(lispify "uv_getaddrinfo_s" 'classname)
@@ -1183,11 +1183,11 @@
 	(#.(lispify "cpu_times" 'slotname) :pointer))
 
 (cffi:defcstruct #.(lispify "uv_cpu_info_s_cpu_times_s" 'classname)
-	(#.(lispify "user" 'slotname) :pointer)
-	(#.(lispify "nice" 'slotname) :pointer)
-	(#.(lispify "sys" 'slotname) :pointer)
-	(#.(lispify "idle" 'slotname) :pointer)
-	(#.(lispify "irq" 'slotname) :pointer))
+	(#.(lispify "user" 'slotname) :unsigned-long-long)
+	(#.(lispify "nice" 'slotname) :unsigned-long-long)
+	(#.(lispify "sys" 'slotname) :unsigned-long-long)
+	(#.(lispify "idle" 'slotname) :unsigned-long-long)
+	(#.(lispify "irq" 'slotname) :unsigned-long-long))
 
 (cffi:defcstruct #.(lispify "uv_interface_address_s" 'classname)
 	(#.(lispify "name" 'slotname) :string)
@@ -1242,20 +1242,20 @@
 (cffi:defcstruct #.(lispify "uv_rusage_t" 'classname)
 	(#.(lispify "ru_utime" 'slotname) #.(lispify "uv_timeval_t" 'classname))
 	(#.(lispify "ru_stime" 'slotname) #.(lispify "uv_timeval_t" 'classname))
-	(#.(lispify "ru_maxrss" 'slotname) :pointer)
-	(#.(lispify "ru_ixrss" 'slotname) :pointer)
-	(#.(lispify "ru_idrss" 'slotname) :pointer)
-	(#.(lispify "ru_isrss" 'slotname) :pointer)
-	(#.(lispify "ru_minflt" 'slotname) :pointer)
-	(#.(lispify "ru_majflt" 'slotname) :pointer)
-	(#.(lispify "ru_nswap" 'slotname) :pointer)
-	(#.(lispify "ru_inblock" 'slotname) :pointer)
-	(#.(lispify "ru_oublock" 'slotname) :pointer)
-	(#.(lispify "ru_msgsnd" 'slotname) :pointer)
-	(#.(lispify "ru_msgrcv" 'slotname) :pointer)
-	(#.(lispify "ru_nsignals" 'slotname) :pointer)
-	(#.(lispify "ru_nvcsw" 'slotname) :pointer)
-	(#.(lispify "ru_nivcsw" 'slotname) :pointer))
+	(#.(lispify "ru_maxrss" 'slotname) :unsigned-long-long)
+	(#.(lispify "ru_ixrss" 'slotname) :unsigned-long-long)
+	(#.(lispify "ru_idrss" 'slotname) :unsigned-long-long)
+	(#.(lispify "ru_isrss" 'slotname) :unsigned-long-long)
+	(#.(lispify "ru_minflt" 'slotname) :unsigned-long-long)
+	(#.(lispify "ru_majflt" 'slotname) :unsigned-long-long)
+	(#.(lispify "ru_nswap" 'slotname) :unsigned-long-long)
+	(#.(lispify "ru_inblock" 'slotname) :unsigned-long-long)
+	(#.(lispify "ru_oublock" 'slotname) :unsigned-long-long)
+	(#.(lispify "ru_msgsnd" 'slotname) :unsigned-long-long)
+	(#.(lispify "ru_msgrcv" 'slotname) :unsigned-long-long)
+	(#.(lispify "ru_nsignals" 'slotname) :unsigned-long-long)
+	(#.(lispify "ru_nvcsw" 'slotname) :unsigned-long-long)
+	(#.(lispify "ru_nivcsw" 'slotname) :unsigned-long-long))
 
 (cffi:defcfun ("uv_getrusage" #.(lispify "uv_getrusage" 'function)) :int
   (rusage :pointer))
@@ -1673,11 +1673,11 @@
 (cffi:defcfun ("uv_chdir" #.(lispify "uv_chdir" 'function)) :int
   (dir :string))
 
-(cffi:defcfun ("uv_get_free_memory" #.(lispify "uv_get_free_memory" 'function)) :pointer)
+(cffi:defcfun ("uv_get_free_memory" #.(lispify "uv_get_free_memory" 'function)) :unsigned-long-long)
 
-(cffi:defcfun ("uv_get_total_memory" #.(lispify "uv_get_total_memory" 'function)) :pointer)
+(cffi:defcfun ("uv_get_total_memory" #.(lispify "uv_get_total_memory" 'function)) :unsigned-long-long)
 
-(cffi:defcfun ("uv_hrtime" #.(lispify "uv_hrtime" 'function)) :pointer)
+(cffi:defcfun ("uv_hrtime" #.(lispify "uv_hrtime" 'function)) :unsigned-long-long)
 
 (cffi:defcfun ("uv_disable_stdio_inheritance" #.(lispify "uv_disable_stdio_inheritance" 'function)) :void)
 
@@ -1780,7 +1780,7 @@
 (cffi:defcfun ("uv_cond_timedwait" #.(lispify "uv_cond_timedwait" 'function)) :int
   (cond :pointer)
   (mutex :pointer)
-  (timeout :pointer))
+  (timeout :unsigned-long-long))
 
 (cffi:defcfun ("uv_once" #.(lispify "uv_once" 'function)) :void
   (guard :pointer)
@@ -1862,8 +1862,8 @@
 	(#.(lispify "idle_handles" 'slotname) :pointer)
 	(#.(lispify "async_handles" 'slotname) :pointer)
 	(#.(lispify "async_watcher" 'slotname) #.(lispify "uv__async" 'classname))
-	(#.(lispify "timer_counter" 'slotname) :pointer)
-	(#.(lispify "time" 'slotname) :pointer)
+	(#.(lispify "timer_counter" 'slotname) :unsigned-long-long)
+	(#.(lispify "time" 'slotname) :unsigned-long-long)
 	(#.(lispify "signal_pipefd" 'slotname) :pointer)
 	(#.(lispify "signal_io_watcher" 'slotname) #.(lispify "uv__io_s" 'classname))
 	(#.(lispify "child_watcher" 'slotname) #.(lispify "uv_signal_s" 'classname))
