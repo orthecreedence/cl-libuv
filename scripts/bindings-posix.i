@@ -15,6 +15,17 @@
 
 typedef unsigned long size_t;
 
+struct addrinfo {
+    int     ai_flags;
+    int     ai_family;
+    int     ai_socktype;
+    int     ai_protocol;
+    size_t  ai_addrlen;
+    struct sockaddr  *ai_addr;
+    char   *ai_canonname;
+    struct evutil_addrinfo  *ai_next;
+};
+
 struct sockaddr_in {
     short   sin_family;
     unsigned short sin_port;

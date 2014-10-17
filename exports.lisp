@@ -6,6 +6,7 @@
 (export '#.(lispify "AF_INET6" 'constant))
 (export '#.(lispify "SOCK_STREAM" 'constant))
 (export '#.(lispify "IPPROTO_TCP" 'constant))
+(export '#.(lispify "addrinfo" 'classname))
 (export '#.(lispify "sockaddr_in" 'classname))
 (export '#.(lispify "sockaddr_in6" 'classname))
 (export '#.(lispify "SPLAY_NEGINF" 'constant))

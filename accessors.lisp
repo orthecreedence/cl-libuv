@@ -10,6 +10,7 @@
                              (list 'foreign-slot-value ptr '',(intern (string c-struct) :libuv) '',slot-name))
                           `(export ',accessor-name :libuv.accessors)))))
 
+(make-accessors #.(libuv::lispify "addrinfo" 'classname))
 (make-accessors #.(libuv::lispify "sockaddr_in" 'classname))
 (make-accessors #.(libuv::lispify "sockaddr_in6" 'classname))
 (make-accessors #.(libuv::lispify "uv__work" 'classname))
