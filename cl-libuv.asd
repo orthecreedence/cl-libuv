@@ -8,5 +8,6 @@
                (:file "wrapper" :depends-on ("libuv"))
                (:file "bindings" :depends-on ("wrapper"))
                (:file "exports" :depends-on ("bindings"))
-               (:file "accessors" :depends-on ("exports"))))
+               (:file "accessors" :depends-on ("exports"))
+               (:file "alloc" :depends-on ("accessors"))))
 

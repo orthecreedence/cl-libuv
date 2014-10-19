@@ -6,6 +6,30 @@
 (in-package :libuv)
 %}
 
+#define AF_UNSPEC   0
+#define AF_UNIX 1
+#define AF_INET 2
+#define AF_INET6 23
+#define SOCK_STREAM 1
+#define IPPROTO_TCP 6
+
+typedef unsigned long size_t;
+typedef unsigned long long uint64_t;
+typedef unsigned int uint32_t;
+typedef unsigned short uint16_t;
+typedef unsigned long long uint8_t;
+
+struct addrinfo {
+    int     ai_flags;
+    int     ai_family;
+    int     ai_socktype;
+    int     ai_protocol;
+    size_t  ai_addrlen;
+    struct sockaddr  *ai_addr;
+    char   *ai_canonname;
+    struct evutil_addrinfo  *ai_next;
+};
+
 struct sockaddr_in {
     short   sin_family;
     unsigned short sin_port;

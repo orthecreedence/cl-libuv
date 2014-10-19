@@ -1,6 +1,10 @@
 (defpackage #:libuv
   (:use :cl :cffi)
-  (:nicknames :uv))
+  (:nicknames :uv)
+  (:export :alloc-handle
+           :alloc-req
+           :free-handle
+           :free-req))
 
 (defpackage #:libuv.accessors
   (:use :cl :cffi :libuv)
