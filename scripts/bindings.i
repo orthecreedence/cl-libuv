@@ -81,6 +81,11 @@ typedef struct uv_buf_t {
   void* base;
 } uv_buf_t_win;
 
+typedef struct uv_buf_t {
+  void* base;
+  size_t len;
+} uv_buf_t;
+
 %include "/usr/local/include/uv/tree.h"
 %include "/usr/local/include/uv/uv-errno.h"
 %include "/usr/local/include/uv/uv-threadpool.h"

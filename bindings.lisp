@@ -69,6 +69,10 @@
 	(#.(lispify "len" 'slotname) :unsigned-long)
 	(#.(lispify "base" 'slotname) :pointer))
 
+(cffi:defcstruct #.(lispify "uv_buf_t" 'classname)
+	(#.(lispify "base" 'slotname) :pointer)
+	(#.(lispify "len" 'slotname) :unsigned-long))
+
 (cl:defconstant #.(lispify "SPLAY_NEGINF" 'constant) -1)
 
 (cl:defconstant #.(lispify "SPLAY_INF" 'constant) 1)
@@ -253,10 +257,6 @@
 	(#.(lispify "cb" 'slotname) :pointer)
 	(#.(lispify "io_watcher" 'slotname) #.(lispify "uv__io_s" 'classname))
 	(#.(lispify "wfd" 'slotname) :int))
-
-(cffi:defcstruct #.(lispify "uv_buf_t" 'classname)
-	(#.(lispify "base" 'slotname) :string)
-	(#.(lispify "len" 'slotname) :unsigned-long))
 
 (cffi:defcstruct #.(lispify "uv_lib_t" 'classname)
 	(#.(lispify "handle" 'slotname) :pointer)
