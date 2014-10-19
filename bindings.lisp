@@ -67,7 +67,7 @@
 
 (cffi:defcstruct #.(lispify "uv_buf_t_win" 'classname)
 	(#.(lispify "len" 'slotname) :unsigned-long)
-	(#.(lispify "base" 'slotname) :string))
+	(#.(lispify "base" 'slotname) :pointer))
 
 (cl:defconstant #.(lispify "SPLAY_NEGINF" 'constant) -1)
 

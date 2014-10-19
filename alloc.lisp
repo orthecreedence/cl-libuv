@@ -55,7 +55,16 @@
       (setf (uv-a:uv-buf-t-base buf) pointer-to-c-buf
             (uv-a:uv-buf-t-len buf) size)
       buf))
-  
+
+(defun uv-buf-read (uv-buf)
+  "Returns two values: the c-buffer and the buffer len of a uv_buf_t object."
+  #+windows
+    (values (uv-a:uv-buf-t-win-base uv-buf)
+            (uv-a:uv-buf-t-win-len uv-buf))
+  #-windows
+    (values (uv-a:uv-buf-t-base uv-buf)
+            (uv-a:uv-buf-t-len uv-buf)))
+
 (defun alloc-handle (type)
   "Allocation a handle object (free with free-handle)."
   (let ((size (gethash type *handle-sizes*)))

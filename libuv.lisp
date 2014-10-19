@@ -2,6 +2,7 @@
   (:use :cl :cffi)
   (:nicknames :uv)
   (:export :alloc-uv-buf
+           :uv-buf-read
            :alloc-handle
            :alloc-req
            :free-handle

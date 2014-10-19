@@ -78,7 +78,7 @@ struct sockaddr_in6 {
 
 typedef struct uv_buf_t {
   ULONG len;
-  char* base;
+  void* base;
 } uv_buf_t_win;
 
 %include "/usr/local/include/uv/tree.h"
