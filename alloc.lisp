@@ -38,7 +38,7 @@
 (defvar *req-sizes* (make-hash-table :test 'eq)
   "Holds calculated size for uv req objects.")
 
-(defun alloc-uv-buf (pointer-to-c-buf size)
+(defun alloc-uv-buf (pointer-to-c-buf size &optional uv-buf)
   "Allocate a ub_buf_t object. You'd think this was easy, but the commands that
    take a uv_buf_t expect pointers and the uv_buf_init() function returns a
    stack-allocated value. Don't know WTH is up with that (probably avoiding
@@ -46,12 +46,12 @@
    
    Anyway, we abstract it here."
   #+windows
-    (let ((buf (cffi:foreign-alloc 'uv:uv-buf-t-win)))
+    (let ((buf (or uv-buf (cffi:foreign-alloc 'uv:uv-buf-t-win))))
       (setf (uv-a:uv-buf-t-win-base buf) pointer-to-c-buf
             (uv-a:uv-buf-t-win-len buf) size)
       buf)
   #-windows
-    (let ((buf (cffi:foreign-alloc 'uv:uv-buf-t)))
+    (let ((buf (or uv-buf (cffi:foreign-alloc 'uv:uv-buf-t))))
       (setf (uv-a:uv-buf-t-base buf) pointer-to-c-buf
             (uv-a:uv-buf-t-len buf) size)
       buf))
