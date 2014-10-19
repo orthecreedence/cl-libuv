@@ -1,7 +1,8 @@
 (defpackage #:libuv
   (:use :cl :cffi)
   (:nicknames :uv)
-  (:export :alloc-handle
+  (:export :alloc-uv-buf
+           :alloc-handle
            :alloc-req
            :free-handle
            :free-req))

@@ -13,6 +13,7 @@
 (make-accessors #.(libuv::lispify "addrinfo" 'classname))
 (make-accessors #.(libuv::lispify "sockaddr_in" 'classname))
 (make-accessors #.(libuv::lispify "sockaddr_in6" 'classname))
+(make-accessors #.(libuv::lispify "uv_buf_t_win" 'classname))
 (make-accessors #.(libuv::lispify "uv__work" 'classname))
 (make-accessors #.(libuv::lispify "uv__io_s" 'classname))
 (make-accessors #.(libuv::lispify "uv__async" 'classname))

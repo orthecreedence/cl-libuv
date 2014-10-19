@@ -6,7 +6,7 @@
 #
 
 #swig -cffi -module bindings-win -noswig-lisp -o bindings-win.lisp scripts/bindings-win.i 
-swig -cffi -module bindings -noswig-lisp -o bindings.lisp scripts/bindings-posix.i
+swig -cffi -module bindings -noswig-lisp -o bindings.lisp scripts/bindings.i
 sed -i 's|( *4095)|4095|' bindings.lisp
 sed -i 's|uv_cpu_info_s_cpu_times|uv_cpu_info_s_cpu_times_s|' bindings.lisp
 sed -i 's|uv_signal_s_tree_entry|uv_signal_s_tree_entry_s|' bindings.lisp

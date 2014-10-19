@@ -18,6 +18,7 @@ typedef unsigned long long uint64_t;
 typedef unsigned int uint32_t;
 typedef unsigned short uint16_t;
 typedef unsigned long long uint8_t;
+typedef unsigned long ULONG;
 
 struct addrinfo {
     int     ai_flags;
@@ -74,6 +75,11 @@ struct sockaddr_in6 {
     unsigned char sin6_addr_15;
     unsigned int sin6_scope_id;
 };
+
+typedef struct uv_buf_t {
+  ULONG len;
+  char* base;
+} uv_buf_t_win;
 
 %include "/usr/local/include/uv/tree.h"
 %include "/usr/local/include/uv/uv-errno.h"

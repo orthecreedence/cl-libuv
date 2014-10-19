@@ -65,6 +65,10 @@
 	(#.(lispify "sin6_addr_15" 'slotname) :unsigned-char)
 	(#.(lispify "sin6_scope_id" 'slotname) :unsigned-int))
 
+(cffi:defcstruct #.(lispify "uv_buf_t_win" 'classname)
+	(#.(lispify "len" 'slotname) :unsigned-long)
+	(#.(lispify "base" 'slotname) :string))
+
 (cl:defconstant #.(lispify "SPLAY_NEGINF" 'constant) -1)
 
 (cl:defconstant #.(lispify "SPLAY_INF" 'constant) 1)

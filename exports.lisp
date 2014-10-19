@@ -9,6 +9,7 @@
 (export '#.(lispify "addrinfo" 'classname))
 (export '#.(lispify "sockaddr_in" 'classname))
 (export '#.(lispify "sockaddr_in6" 'classname))
+(export '#.(lispify "uv_buf_t_win" 'classname))
 (export '#.(lispify "SPLAY_NEGINF" 'constant))
 (export '#.(lispify "SPLAY_INF" 'constant))
 (export '#.(lispify "RB_BLACK" 'constant))
