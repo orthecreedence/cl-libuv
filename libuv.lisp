@@ -3,10 +3,12 @@
   (:nicknames :uv)
   (:export :alloc-uv-buf
            :uv-buf-read
+           :free-uv-buf
            :alloc-handle
            :alloc-req
            :free-handle
-           :free-req))
+           :free-req
+           :handle-type))
 
 (defpackage #:libuv.accessors
   (:use :cl :cffi :libuv)
