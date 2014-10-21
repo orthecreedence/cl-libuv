@@ -408,12 +408,12 @@
 
 (cffi:defcfun ("uv_loop_size" #.(lispify "uv_loop_size" 'function)) :unsigned-long)
 
+(cffi:defcfun ("uv_loop_alive" #.(lispify "uv_loop_alive" 'function)) :int
+  (loop :pointer))
+
 (cffi:defcfun ("uv_run" #.(lispify "uv_run" 'function)) :int
   (arg0 :pointer)
   (mode #.(lispify "uv_run_mode" 'enumname)))
-
-(cffi:defcfun ("uv_loop_alive" #.(lispify "uv_loop_alive" 'function)) :int
-  (loop :pointer))
 
 (cffi:defcfun ("uv_stop" #.(lispify "uv_stop" 'function)) :void
   (arg0 :pointer))
@@ -518,6 +518,10 @@
   (handle :pointer)
   (close_cb :pointer))
 
+(cffi:defcfun ("uv_send_buffer_size" #.(lispify "uv_send_buffer_size" 'function)) :int
+  (handle :pointer)
+  (value :pointer))
+
 (cffi:defcfun ("uv_recv_buffer_size" #.(lispify "uv_recv_buffer_size" 'function)) :int
   (handle :pointer)
   (value :pointer))
@@ -525,10 +529,6 @@
 (cffi:defcfun ("uv_fileno" #.(lispify "uv_fileno" 'function)) :int
   (handle :pointer)
   (fd :pointer))
-
-(cffi:defcfun ("uv_send_buffer_size" #.(lispify "uv_send_buffer_size" 'function)) :int
-  (handle :pointer)
-  (value :pointer))
 
 (cffi:defcfun ("uv_buf_init" #.(lispify "uv_buf_init" 'function)) #.(lispify "uv_buf_t" 'classname)
   (base :string)
@@ -1304,6 +1304,7 @@
 	#.(lispify "UV_FS_FTRUNCATE" 'enumvalue :keyword)
 	#.(lispify "UV_FS_UTIME" 'enumvalue :keyword)
 	#.(lispify "UV_FS_FUTIME" 'enumvalue :keyword)
+	#.(lispify "UV_FS_ACCESS" 'enumvalue :keyword)
 	#.(lispify "UV_FS_CHMOD" 'enumvalue :keyword)
 	#.(lispify "UV_FS_FCHMOD" 'enumvalue :keyword)
 	#.(lispify "UV_FS_FSYNC" 'enumvalue :keyword)
@@ -1313,7 +1314,7 @@
 	#.(lispify "UV_FS_MKDIR" 'enumvalue :keyword)
 	#.(lispify "UV_FS_MKDTEMP" 'enumvalue :keyword)
 	#.(lispify "UV_FS_RENAME" 'enumvalue :keyword)
-	#.(lispify "UV_FS_READDIR" 'enumvalue :keyword)
+	#.(lispify "UV_FS_SCANDIR" 'enumvalue :keyword)
 	#.(lispify "UV_FS_LINK" 'enumvalue :keyword)
 	#.(lispify "UV_FS_SYMLINK" 'enumvalue :keyword)
 	#.(lispify "UV_FS_READLINK" 'enumvalue :keyword)
@@ -1406,14 +1407,14 @@
   (path :string)
   (cb :pointer))
 
-(cffi:defcfun ("uv_fs_readdir" #.(lispify "uv_fs_readdir" 'function)) :int
+(cffi:defcfun ("uv_fs_scandir" #.(lispify "uv_fs_scandir" 'function)) :int
   (loop :pointer)
   (req :pointer)
   (path :string)
   (flags :int)
   (cb :pointer))
 
-(cffi:defcfun ("uv_fs_readdir_next" #.(lispify "uv_fs_readdir_next" 'function)) :int
+(cffi:defcfun ("uv_fs_scandir_next" #.(lispify "uv_fs_scandir_next" 'function)) :int
   (req :pointer)
   (ent :pointer))
 
@@ -1462,6 +1463,13 @@
   (in_fd :int)
   (in_offset :pointer)
   (length :unsigned-long)
+  (cb :pointer))
+
+(cffi:defcfun ("uv_fs_access" #.(lispify "uv_fs_access" 'function)) :int
+  (loop :pointer)
+  (req :pointer)
+  (path :string)
+  (flags :int)
   (cb :pointer))
 
 (cffi:defcfun ("uv_fs_chmod" #.(lispify "uv_fs_chmod" 'function)) :int
@@ -1818,10 +1826,14 @@
   (entry :pointer)
   (arg :pointer))
 
-(cffi:defcfun ("uv_thread_self" #.(lispify "uv_thread_self" 'function)) :unsigned-long)
+(cffi:defcfun ("uv_thread_self" #.(lispify "uv_thread_self" 'function)) :pointer)
 
 (cffi:defcfun ("uv_thread_join" #.(lispify "uv_thread_join" 'function)) :int
   (tid :pointer))
+
+(cffi:defcfun ("uv_thread_equal" #.(lispify "uv_thread_equal" 'function)) :int
+  (t1 :pointer)
+  (t2 :pointer))
 
 (cffi:defcunion #.(lispify "uv_any_handle" 'classname)
 	(#.(lispify "async" 'slotname) #.(lispify "uv_async_s" 'classname))
