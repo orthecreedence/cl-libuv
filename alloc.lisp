@@ -55,8 +55,8 @@
   ;(uv:uv-buf-init pointer-to-c-buf size)
   (let ((buf (or uv-buf
                  (cffi:foreign-alloc
-                   #+windows '(:pointer (:struct uv:uv-buf-t-win))
-                   #-windows '(:pointer (:struct uv:uv-buf-t))))))
+                   #+windows '(:struct uv:uv-buf-t-win)
+                   #-windows '(:struct uv:uv-buf-t)))))
     (setf (uv-a:uv-buf-t-win-base buf) pointer-to-c-buf
           (uv-a:uv-buf-t-win-len buf) size)
     (when +debug-mode+ (format t "-- + buf aloc: ~s ~x (existing ~a)~%" size (cffi:pointer-address buf) (not (not uv-buf))))
