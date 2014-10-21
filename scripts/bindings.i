@@ -17,6 +17,7 @@ typedef unsigned long size_t;
 typedef unsigned long long uint64_t;
 typedef unsigned int uint32_t;
 typedef unsigned short uint16_t;
+typedef unsigned short WCHAR;
 typedef unsigned long long uint8_t;
 typedef unsigned long ULONG;
 
@@ -29,6 +30,17 @@ struct addrinfo {
     struct sockaddr  *ai_addr;
     char   *ai_canonname;
     struct evutil_addrinfo  *ai_next;
+};
+
+struct addrinfoW {
+    int ai_flags;
+    int ai_family;
+    int ai_socktype;
+    int ai_protocol;
+    size_t ai_addrlen;
+    WCHAR* ai_canonname;
+    struct sockaddr* ai_addr;
+    struct addrinfoW* ai_next;
 };
 
 struct sockaddr_in {

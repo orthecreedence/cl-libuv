@@ -30,6 +30,16 @@
 	(#.(lispify "ai_canonname" 'slotname) :string)
 	(#.(lispify "ai_next" 'slotname) :pointer))
 
+(cffi:defcstruct #.(lispify "addrinfoW" 'classname)
+	(#.(lispify "ai_flags" 'slotname) :int)
+	(#.(lispify "ai_family" 'slotname) :int)
+	(#.(lispify "ai_socktype" 'slotname) :int)
+	(#.(lispify "ai_protocol" 'slotname) :int)
+	(#.(lispify "ai_addrlen" 'slotname) :unsigned-long)
+	(#.(lispify "ai_canonname" 'slotname) :pointer)
+	(#.(lispify "ai_addr" 'slotname) :pointer)
+	(#.(lispify "ai_next" 'slotname) :pointer))
+
 (cffi:defcstruct #.(lispify "sockaddr_in" 'classname)
 	(#.(lispify "sin_family" 'slotname) :short)
 	(#.(lispify "sin_port" 'slotname) :unsigned-short)

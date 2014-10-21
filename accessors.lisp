@@ -11,6 +11,7 @@
                           `(export ',accessor-name :libuv.accessors)))))
 
 (make-accessors #.(libuv::lispify "addrinfo" 'classname))
+(make-accessors #.(libuv::lispify "addrinfoW" 'classname))
 (make-accessors #.(libuv::lispify "sockaddr_in" 'classname))
 (make-accessors #.(libuv::lispify "sockaddr_in6" 'classname))
 (make-accessors #.(libuv::lispify "uv_buf_t_win" 'classname))
