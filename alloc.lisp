@@ -52,7 +52,6 @@
    assuming we're using malloc or something).
    
    Anyway, we abstract it here."
-  ;(uv:uv-buf-init pointer-to-c-buf size)
   (let ((buf (or uv-buf
                  (cffi:foreign-alloc
                    #+windows '(:struct uv:uv-buf-t-win)
