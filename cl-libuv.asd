@@ -9,5 +9,5 @@
                (:file "bindings" :depends-on ("wrapper"))
                (:file "exports" :depends-on ("bindings"))
                (:file "accessors" :depends-on ("exports"))
-               (:file "alloc" :depends-on ("accessors"))))
+               (:file "util" :depends-on ("accessors"))))
 
