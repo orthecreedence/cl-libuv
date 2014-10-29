@@ -7,7 +7,8 @@
   :components ((:file "libuv")
                (:file "wrapper" :depends-on ("libuv"))
                (:file "bindings" :depends-on ("wrapper"))
-               (:file "exports" :depends-on ("bindings"))
+               (:file "win-error" :depends-on ("wrapper"))
+               (:file "exports" :depends-on ("bindings" "win-error"))
                (:file "accessors" :depends-on ("exports"))
                (:file "util" :depends-on ("accessors"))))
 

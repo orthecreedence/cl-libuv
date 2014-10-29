@@ -1,0 +1,42 @@
+%module bindings
+
+%feature("intern_function", "lispify");
+
+%insert("lisphead") %{
+(in-package :libuv)
+%}
+
+#define _WIN32 1
+
+#define UV_REQ_TYPE_PRIVATE 
+#define UV_REQ_TYPE_MAX
+#define UV_REQ_PRIVATE_FIELDS
+#define UV_PRIVATE_REQ_TYPES
+#define UV_SHUTDOWN_PRIVATE_FIELDS
+#define UV_HANDLE_PRIVATE_FIELDS
+#define UV_STREAM_PRIVATE_FIELDS
+#define UV_WRITE_PRIVATE_FIELDS
+#define UV_TCP_PRIVATE_FIELDS
+#define UV_CONNECT_PRIVATE_FIELDS
+#define UV_UDP_PRIVATE_FIELDS
+#define UV_UDP_SEND_PRIVATE_FIELDS
+#define UV_TTY_PRIVATE_FIELDS
+#define UV_PIPE_PRIVATE_FIELDS
+#define UV_POLL_PRIVATE_FIELDS
+#define UV_PREPARE_PRIVATE_FIELDS
+#define UV_CHECK_PRIVATE_FIELDS
+#define UV_IDLE_PRIVATE_FIELDS
+#define UV_ASYNC_PRIVATE_FIELDS
+#define UV_TIMER_PRIVATE_FIELDS
+#define UV_GETADDRINFO_PRIVATE_FIELDS
+#define UV_GETNAMEINFO_PRIVATE_FIELDS
+#define UV_PROCESS_PRIVATE_FIELDS
+#define UV_WORK_PRIVATE_FIELDS
+#define UV_FS_PRIVATE_FIELDS
+#define UV_FS_EVENT_PRIVATE_FIELDS
+#define UV_SIGNAL_PRIVATE_FIELDS
+#define UV_LOOP_PRIVATE_FIELDS
+
+%include "/usr/local/include/uv-errno.h"
+%include "/usr/local/include/uv.h"
+

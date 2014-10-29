@@ -2,6 +2,24 @@
 
 (defconstant +debug-mode+ nil)
 
+;; directly exporting these
+(defconstant +af-unspec+ 0)
+(defconstant +af-unix+ 1)
+(defconstant +af-inet+ 2)
+(defconstant +af-inet-6+ 23)
+(defconstant +sock-stream+ 1)
+(defconstant +ipproto-tcp+ 6)
+
+(defun errval (err)
+  "Get an error constant value by its name keyword.
+   
+   So :etimedout gets the enum UV_ETIMEDOUT"
+  (let ((sym (intern (format nil "+UV-~a+" (string-upcase (string err))) :keyword)))
+    #+windows
+    (cffi:foreign-enum-value 'uv:uv-errno-t-w sym)
+    #-windows
+    (cffi:foreign-enum-value 'uv:uv-errno-t sym)))
+
 (defparameter *handle-types*
   '(async
     check

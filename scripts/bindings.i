@@ -6,19 +6,12 @@
 (in-package :libuv)
 %}
 
-#define AF_UNSPEC   0
-#define AF_UNIX 1
-#define AF_INET 2
-#define AF_INET6 23
-#define SOCK_STREAM 1
-#define IPPROTO_TCP 6
-
 typedef unsigned long size_t;
 typedef unsigned long long uint64_t;
 typedef unsigned int uint32_t;
 typedef unsigned short uint16_t;
-typedef unsigned short WCHAR;
 typedef unsigned long long uint8_t;
+typedef unsigned short WCHAR;
 typedef unsigned long ULONG;
 
 struct addrinfo {
@@ -98,9 +91,5 @@ typedef struct uv_buf_t {
   size_t len;
 } uv_buf_t;
 
-%include "/usr/local/include/uv/tree.h"
-%include "/usr/local/include/uv/uv-errno.h"
-%include "/usr/local/include/uv/uv-threadpool.h"
-%include "/usr/local/include/uv/uv-unix.h"
-%include "/usr/local/include/uv/uv.h"
+%include "/usr/local/include/uv.h"
 

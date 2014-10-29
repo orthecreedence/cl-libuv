@@ -1,14 +1,22 @@
 (defpackage #:libuv
   (:use :cl :cffi)
   (:nicknames :uv)
-  (:export :alloc-uv-buf
-           :uv-buf-read
-           :free-uv-buf
-           :alloc-handle
-           :alloc-req
-           :free-handle
-           :free-req
-           :handle-type))
+  (:export #:+af-unspec+
+           #:+af-unix+
+           #:+af-inet+
+           #:+af-inet-6+
+           #:+sock-stream+
+           #:+ipproto-tcp+
+
+           #:errval
+           #:alloc-uv-buf
+           #:uv-buf-read
+           #:free-uv-buf
+           #:alloc-handle
+           #:alloc-req
+           #:free-handle
+           #:free-req
+           #:handle-type))
 
 (defpackage #:libuv.accessors
   (:use :cl :cffi :libuv)
