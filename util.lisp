@@ -70,9 +70,9 @@
    assuming we're using malloc or something).
    
    Anyway, we abstract it here."
-  (let ((type #+windows '(:struct uv:uv-buf-t-win)
-              #-windows '(:struct uv:uv-buf-t))
-        (buf (or uv-buf (cffi:foreign-alloc type))))
+  (let* ((type #+windows '(:struct uv:uv-buf-t-win)
+               #-windows '(:struct uv:uv-buf-t))
+         (buf (or uv-buf (cffi:foreign-alloc type))))
     (setf (foreign-slot-value buf type 'base) pointer-to-c-buf
           (foreign-slot-value but type 'len) size)
     (when +debug-mode+ (format t "-- + buf aloc: ~s ~x (existing ~a)~%" size (cffi:pointer-address buf) (not (not uv-buf))))
