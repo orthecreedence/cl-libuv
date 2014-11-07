@@ -1,7 +1,5 @@
 (in-package :libuv)
 
-(defconstant +debug-mode+ nil)
-
 ;; directly exporting these
 (defconstant +af-unspec+ 0)
 (defconstant +af-unix+ 1)
@@ -63,6 +61,11 @@
 (defvar *handle-val-name* (make-hash-table :test 'eq)
   "Holds handle enum -> handle type mappings.")
 
+(alexandria:define-constant +uv-buf-type+ (progn #+windows '(:struct uv:uv-buf-t-win)
+                                                 #-windows '(:struct uv:uv-buf-t))
+  :test 'equal
+  :documentation "Holds our uv buf type for this platform")
+
 (defun alloc-uv-buf (pointer-to-c-buf size &optional uv-buf)
   "Allocate a ub_buf_t object. You'd think this was easy, but the commands that
    take a uv_buf_t expect pointers and the uv_buf_init() function returns a
@@ -70,12 +73,9 @@
    assuming we're using malloc or something).
    
    Anyway, we abstract it here."
-  (let* ((type #+windows '(:struct uv:uv-buf-t-win)
-               #-windows '(:struct uv:uv-buf-t))
-         (buf (or uv-buf (cffi:foreign-alloc type))))
-    (setf (foreign-slot-value buf type 'base) pointer-to-c-buf
-          (foreign-slot-value buf type 'len) size)
-    (when +debug-mode+ (format t "-- + buf aloc: ~s ~x (existing ~a)~%" size (cffi:pointer-address buf) (not (not uv-buf))))
+  (let ((buf (or uv-buf (cffi:foreign-alloc +uv-buf-type+))))
+    (setf (foreign-slot-value buf +uv-buf-type+ 'base) pointer-to-c-buf
+          (foreign-slot-value buf +uv-buf-type+ 'len) size)
     buf))
 
 (defun uv-buf-read (uv-buf)
@@ -89,7 +89,6 @@
 
 (defun free-uv-buf (uv-buf)
   "Free an allocated uv_buf_t."
-  (when +debug-mode+ (format t "-- + buf free: ~s ~x~%" size (cffi:pointer-address buf)))
   (cffi:foreign-free uv-buf))
 
 (defun alloc-handle (type)
@@ -97,26 +96,22 @@
   (let* ((size (gethash type *handle-sizes*))
          (handle (cffi:foreign-alloc :char :count size)))
     (setf (uv-a:uv-handle-s-data handle) (cffi:make-pointer (handle-to-val type)))
-    (when +debug-mode+ (format t "-- + handle aloc: ~s ~x~%" type (cffi:pointer-address handle)))
     handle))
 
 (defun alloc-req (type)
   "Allocation a req object (free with free-req)."
   (let* ((size (gethash type *req-sizes*))
          (req (cffi:foreign-alloc :char :count size)))
-    (when +debug-mode+ (format t "-- + req aloc: ~s ~x~%" type (cffi:pointer-address req)))
     req))
 
 (defun free-handle (pointer)
   "Free a handle object created with alloc-handle."
   (when (cffi:pointerp pointer)
-    (when +debug-mode+ (format t "-- - handle free: ~s ~x~%" (handle-type pointer) (cffi:pointer-address pointer)))
     (cffi:foreign-free pointer)))
 
 (defun free-req (pointer)
   "Free a req object created with alloc-req."
   (when (cffi:pointerp pointer)
-    (when +debug-mode+ (format t "-- - req free: ~x~%" (cffi:pointer-address pointer)))
     (cffi:foreign-free pointer)))
 
 (defun handle-type (handle-ptr)

@@ -3,7 +3,7 @@
   :license "MIT"
   :version "0.1.5"
   :description "Low-level libuv bindings for Common Lisp."
-  :depends-on (#:cffi)
+  :depends-on (#:cffi #:alexandria)
   :components ((:file "libuv")
                (:file "wrapper" :depends-on ("libuv"))
                (:file "bindings" :depends-on ("wrapper"))
