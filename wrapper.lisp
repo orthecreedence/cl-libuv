@@ -33,15 +33,20 @@
              (let ((l (length prf)))
                (if (and (> (length str) l) (string= prf (subseq str 0 l)))
                  (subseq str l)
-                 str))))
+                 str)))
+           (process (name)
+             (case flag
+               (classname-wrap (list :struct name))
+               (t name))))
     (let ((fix (case flag
                  ((constant enumvalue) "+")
                  (variable "*")
                  (t ""))))
-      (intern (concatenate 'string fix (nreverse (helper (concatenate 'list (strip-prefix "___" name)) nil nil)) fix)
-        package))))
+      (process (intern (concatenate 'string fix (nreverse (helper (concatenate 'list (strip-prefix "___" name)) nil nil)) fix)
+        package)))))
 
 (defun version<= (str-version str-cmp)
+  (declare (ignore str-version str-cmp))
   ;; fuck it
   ;(asdf:version-satisfies (asdf:find-system :cffi) "0.10.7.0")
   t)

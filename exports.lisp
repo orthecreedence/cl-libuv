@@ -47,7 +47,6 @@
 (export '#.(lispify "uv_send_buffer_size" 'function))
 (export '#.(lispify "uv_recv_buffer_size" 'function))
 (export '#.(lispify "uv_fileno" 'function))
-(export '#.(lispify "uv_buf_init" 'function))
 (export '#.(lispify "uv_stream_s" 'classname))
 (export '#.(lispify "uv_listen" 'function))
 (export '#.(lispify "uv_accept" 'function))

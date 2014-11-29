@@ -6,6 +6,8 @@
 (in-package :libuv)
 %}
 
+%ignore "uv_buf_init";
+
 typedef unsigned long size_t;
 typedef unsigned long long uint64_t;
 typedef unsigned int uint32_t;
