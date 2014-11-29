@@ -1280,7 +1280,7 @@
   (loop :pointer)
   (req :pointer)
   (path :string)
-  (flags :int)
+  (mode :int)
   (cb :pointer))
 
 (cffi:defcfun ("uv_fs_chmod" #.(lispify "uv_fs_chmod" 'function)) :int
