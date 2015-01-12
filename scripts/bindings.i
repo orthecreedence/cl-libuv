@@ -6,92 +6,55 @@
 (in-package :libuv)
 %}
 
+%ignore "uv_errno_t";
+%ignore "uv_req_type";
+%ignore "uv_handle_type";
+%ignore "uv_tcp_flags";
+%ignore "uv_udp_flags";
+%ignore "uv_fs_event";
+%ignore "uv_fs_event_flags";
+%ignore "uv_fs_type";
+%ignore "uv_poll_event";
+%ignore "uv_process_flags";
+
+%ignore "uv_buf_t";
+%ignore "uv_timespec_t";
+%ignore "uv_stat_t";
+%ignore "uv_loop_s";
+%ignore "uv_process_options_t";
+%ignore "uv_dirent_s";
+%ignore "uv_stdio_container_t";
+%ignore "uv_cpu_info_s";
+%ignore "uv_interface_address_s";
+
+%ignore "uv_req_s";
+%ignore "uv_shutdown_s";
+%ignore "uv_write_s";
+%ignore "uv_connect_s";
+%ignore "uv_udp_send_s";
+%ignore "uv_getaddrinfo_s";
+%ignore "uv_getnameinfo_s";
+%ignore "uv_work_s";
+%ignore "uv_fs_s";
+
+%ignore "uv_handle_s";
+%ignore "uv_stream_s";
+%ignore "uv_tcp_s";
+%ignore "uv_udp_s";
+%ignore "uv_tty_s";
+%ignore "uv_pipe_s";
+%ignore "uv_poll_s";
+%ignore "uv_prepare_s";
+%ignore "uv_check_s";
+%ignore "uv_idle_s";
+%ignore "uv_async_s";
+%ignore "uv_timer_s";
+%ignore "uv_process_s";
+%ignore "uv_fs_event_s";
+%ignore "uv_fs_poll_s";
+%ignore "uv_signal_s";
+
 %ignore "uv_buf_init";
-
-typedef unsigned long size_t;
-typedef unsigned long long uint64_t;
-typedef unsigned int uint32_t;
-typedef unsigned short uint16_t;
-typedef unsigned long long uint8_t;
-typedef unsigned short WCHAR;
-typedef unsigned long ULONG;
-
-struct addrinfo {
-    int     ai_flags;
-    int     ai_family;
-    int     ai_socktype;
-    int     ai_protocol;
-    size_t  ai_addrlen;
-    struct sockaddr  *ai_addr;
-    char   *ai_canonname;
-    struct evutil_addrinfo  *ai_next;
-};
-
-struct addrinfoW {
-    int ai_flags;
-    int ai_family;
-    int ai_socktype;
-    int ai_protocol;
-    size_t ai_addrlen;
-    WCHAR* ai_canonname;
-    struct sockaddr* ai_addr;
-    struct addrinfoW* ai_next;
-};
-
-struct sockaddr_in {
-    short   sin_family;
-    unsigned short sin_port;
-
-    /* NOTE: should be unsigned long, but CFFI adds +4 to the offset if this
-       is a long, which really shouldn't happen. unsigned int seems to work on
-       all platforms, so until otherwise noted, this is how it's going to stay */
-    unsigned int sin_addr;
-    /*struct  in_addr sin_addr;*/
-    /*char    sin_zero[8];*/
-    char sin_zero_0;
-    char sin_zero_1;
-    char sin_zero_2;
-    char sin_zero_3;
-    char sin_zero_4;
-    char sin_zero_5;
-    char sin_zero_6;
-    char sin_zero_7;
-};
-
-struct sockaddr_in6 {
-    unsigned short sin6_family;
-    unsigned short sin6_port;
-    unsigned int sin6_flowinfo;
-    /* struct sin6_addr */
-    /* unsigned char s6_addr[16] */
-    unsigned char sin6_addr_0;
-    unsigned char sin6_addr_1;
-    unsigned char sin6_addr_2;
-    unsigned char sin6_addr_3;
-    unsigned char sin6_addr_4;
-    unsigned char sin6_addr_5;
-    unsigned char sin6_addr_6;
-    unsigned char sin6_addr_7;
-    unsigned char sin6_addr_8;
-    unsigned char sin6_addr_9;
-    unsigned char sin6_addr_10;
-    unsigned char sin6_addr_11;
-    unsigned char sin6_addr_12;
-    unsigned char sin6_addr_13;
-    unsigned char sin6_addr_14;
-    unsigned char sin6_addr_15;
-    unsigned int sin6_scope_id;
-};
-
-typedef struct uv_buf_t {
-  ULONG len;
-  void* base;
-} uv_buf_t_win;
-
-typedef struct uv_buf_t {
-  void* base;
-  size_t len;
-} uv_buf_t;
 
 %include "/usr/local/include/uv.h"
 
