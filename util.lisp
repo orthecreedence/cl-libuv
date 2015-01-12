@@ -83,7 +83,6 @@
   "Allocate a handle object (free with free-handle)."
   (let* ((size (gethash type *handle-sizes*))
          (handle (cffi:foreign-alloc :char :count size)))
-    (setf (uv-a:uv-handle-s-data handle) (cffi:make-pointer (handle-to-val type)))
     handle))
 
 (defun alloc-req (type)
@@ -104,7 +103,7 @@
 
 (defun handle-type (handle-ptr)
   "Given a libuv handle, return its type."
-  (handle-from-val (cffi:pointer-address (uv-a:uv-handle-s-data handle-ptr))))
+  (handle-from-val (uv-a:uv-handle-s-type handle-ptr)))
 
 (defun handle-to-val (handle-keyword)
   "Get a handle enuma val from its name."
