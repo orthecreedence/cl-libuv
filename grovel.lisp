@@ -278,10 +278,10 @@
 
 (cstruct uv-process-options-t "uv_process_options_t"
   (exit-cb "exit_cb" :type :pointer)
-  (file "file" :type :pointer)
+  (file "file" :type :string)
   (args "args" :type :pointer)
   (env "env" :type :pointer)
-  (cwd "cwd" :type :pointer)
+  (cwd "cwd" :type :string)
   (flags "flags" :type :unsigned-int)
   (stdio-count "stdio_count" :type :int)
   (stdio "stdio" :type :pointer)
@@ -289,7 +289,7 @@
   (gid "gid" :type uv-gid-t))
 
 (cstruct uv-dirent-s "struct uv_dirent_s"
-  (name "name" :type :pointer)
+  (name "name" :type :string)
   (type "type" :type uv-dirent-type-t))
 
 ;; TODO: figure out embedded struct/union syntax...
@@ -362,7 +362,7 @@
   (cb "cb" :type :pointer)
   (result "result" :type ssize-t)
   (ptr "ptr" :type :pointer)
-  (path "path" :type :pointer)
+  (path "path" :type :string)
   (statbuf "statbuf" :type uv-stat-t))
 
 ;; -----------------------------------------------------------------------------
