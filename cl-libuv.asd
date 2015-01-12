@@ -7,13 +7,13 @@
   :version "0.1.6"
   :description "Low-level libuv bindings for Common Lisp."
   :depends-on (#:cffi #:alexandria)
+  :serial t
   :components ((:file "package")
-               (:file "lib" :depends-on ("package"))
-               (cffi-grovel:grovel-file "grovel" :depends-on ("package"))
-               (:file "wrapper" :depends-on ("package" "grovel"))
-               (:file "bindings" :depends-on ("wrapper"))
-               (:file "win-error" :depends-on ("wrapper"))
-               (:file "exports" :depends-on ("bindings" "win-error"))
-               (:file "accessors" :depends-on ("exports"))
-               (:file "util" :depends-on ("accessors"))))
+               (:file "lib")
+               (cffi-grovel:grovel-file "grovel")
+               (:file "wrapper")
+               (:file "bindings")
+               (:file "exports")
+               (:file "accessors")
+               (:file "util")))
 
