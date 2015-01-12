@@ -12,7 +12,7 @@
                                                           "-"
                                                           (symbol-name slot-name)))
                  append (list `(defmacro ,accessor-name (,_ptr)
-                                 (list 'foreign-slot-value ,_ptr '(:struct ,(intern (string c-struct) :libuv)) ',slot-name))
+                                 (list 'foreign-slot-value ,_ptr ''(:struct ,(intern (string c-struct) :libuv)) '',slot-name))
                               `(import ',slot-name :libuv)
                               `(export ',slot-name :libuv)
                               `(export ',accessor-name :libuv.accessors)))))))
