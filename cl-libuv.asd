@@ -4,7 +4,7 @@
 (asdf:defsystem cl-libuv
   :author "Andrew Danger Lyon <orthecreedence@gmail.com>"
   :license "MIT"
-  :version "0.1.5"
+  :version "0.1.6"
   :description "Low-level libuv bindings for Common Lisp."
   :depends-on (#:cffi #:alexandria)
   :components ((:file "package")

@@ -1,6 +1,5 @@
 (in-package :libuv)
 
-;; directly exporting these
 (defconstant +af-unspec+ 0)
 (defconstant +af-unix+ 1)
 (defconstant +af-inet+ 2)
@@ -13,9 +12,6 @@
    
    So :etimedout gets the enum UV_ETIMEDOUT"
   (let ((sym (intern (format nil "+UV-~a+" (string-upcase (string err))) :keyword)))
-    #+windows
-    (cffi:foreign-enum-value 'uv:uv-errno-t-w sym)
-    #-windows
     (cffi:foreign-enum-value 'uv:uv-errno-t sym)))
 
 (defparameter *handle-types*
@@ -61,11 +57,6 @@
 (defvar *handle-val-name* (make-hash-table :test 'eq)
   "Holds handle enum -> handle type mappings.")
 
-(alexandria:define-constant +uv-buf-type+ (progn #+windows '(:struct uv:uv-buf-t-win)
-                                                 #-windows '(:struct uv:uv-buf-t))
-  :test 'equal
-  :documentation "Holds our uv buf type for this platform")
-
 (defun alloc-uv-buf (pointer-to-c-buf size &optional uv-buf)
   "Allocate a ub_buf_t object. You'd think this was easy, but the commands that
    take a uv_buf_t expect pointers and the uv_buf_init() function returns a
@@ -73,33 +64,30 @@
    assuming we're using malloc or something).
    
    Anyway, we abstract it here."
-  (let ((buf (or uv-buf (cffi:foreign-alloc +uv-buf-type+))))
-    (setf (foreign-slot-value buf +uv-buf-type+ 'base) pointer-to-c-buf
-          (foreign-slot-value buf +uv-buf-type+ 'len) size)
+  (let* ((type '(:struct uv:uv-buf-t))
+         (buf (or uv-buf (cffi:foreign-alloc type))))
+    (setf (foreign-slot-value buf type 'base) pointer-to-c-buf
+          (foreign-slot-value buf type 'len) size)
     buf))
 
 (defun uv-buf-read (uv-buf)
   "Returns two values: the c-buffer and the buffer len of a uv_buf_t object."
-  #+windows
-    (values (uv-a:uv-buf-t-win-base uv-buf)
-            (uv-a:uv-buf-t-win-len uv-buf))
-  #-windows
-    (values (uv-a:uv-buf-t-base uv-buf)
-            (uv-a:uv-buf-t-len uv-buf)))
+  (values (uv-a:uv-buf-t-base uv-buf)
+          (uv-a:uv-buf-t-len uv-buf)))
 
 (defun free-uv-buf (uv-buf)
   "Free an allocated uv_buf_t."
   (cffi:foreign-free uv-buf))
 
 (defun alloc-handle (type)
-  "Allocation a handle object (free with free-handle)."
+  "Allocate a handle object (free with free-handle)."
   (let* ((size (gethash type *handle-sizes*))
          (handle (cffi:foreign-alloc :char :count size)))
     (setf (uv-a:uv-handle-s-data handle) (cffi:make-pointer (handle-to-val type)))
     handle))
 
 (defun alloc-req (type)
-  "Allocation a req object (free with free-req)."
+  "Allocate a req object (free with free-req)."
   (let* ((size (gethash type *req-sizes*))
          (req (cffi:foreign-alloc :char :count size)))
     req))
