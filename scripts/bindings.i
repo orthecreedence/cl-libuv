@@ -7,8 +7,8 @@
 %}
 
 // our c types (grovel gives us mappings for these)
-%typemap(cin) ssize_t "ssize-t";
 %typemap(cin) size_t "size-t";
+%typemap(cin) ssize_t "ssize-t";
 %typemap(cin) uint64_t "uint64-t";
 %typemap(cin) uint32_t "uint32-t";
 %typemap(cin) uint16_t "uint16-t";
@@ -17,6 +17,16 @@
 %typemap(cin) ULONG "ulong";
 %typemap(cin) uv_uid_t "uv-uid-t";
 %typemap(cin) uv_gid_t "uv-gid-t";
+%typemap(cout) size_t "size-t";
+%typemap(cout) ssize_t "ssize-t";
+%typemap(cout) uint64_t "uint64-t";
+%typemap(cout) uint32_t "uint32-t";
+%typemap(cout) uint16_t "uint16-t";
+%typemap(cout) uint8_t "uint8-t";
+%typemap(cout) WCHAR "wchar";
+%typemap(cout) ULONG "ulong";
+%typemap(cout) uv_uid_t "uv-uid-t";
+%typemap(cout) uv_gid_t "uv-gid-t";
 
 // setup types for the enums
 %typemap(cin) uv_errno_t "uv-errno-t";
@@ -29,6 +39,16 @@
 %typemap(cin) uv_fs_type "uv-fs-type";
 %typemap(cin) uv_poll_event "uv-poll-event";
 %typemap(cin) uv_process_flags "uv-process-flags";
+%typemap(cout) uv_errno_t "uv-errno-t";
+%typemap(cout) uv_req_type "uv-req-type";
+%typemap(cout) uv_handle_type "uv-handle-type";
+%typemap(cout) uv_tcp_flags "uv-tcp-flags";
+%typemap(cout) uv_udp_flags "uv-udp-flags";
+%typemap(cout) uv_fs_event "uv-fs-event";
+%typemap(cout) uv_fs_event_flags "uv-fs-event-flags";
+%typemap(cout) uv_fs_type "uv-fs-type";
+%typemap(cout) uv_poll_event "uv-poll-event";
+%typemap(cout) uv_process_flags "uv-process-flags";
 
 // ignore our enums (grovel handles these)
 %ignore "uv_errno_t";
