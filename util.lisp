@@ -9,7 +9,7 @@
 
 (defun errval (err)
   "Get an error constant value by its name keyword.
-   
+
    So :etimedout gets the enum UV_ETIMEDOUT"
   (cffi:foreign-enum-value 'uv:uv-errno-t err))
 
@@ -31,7 +31,7 @@
     udp
     signal)
   "Enumerates our handle classes.")
-    
+
 (defparameter *req-types*
   '(req
     connect
@@ -50,17 +50,12 @@
 (defvar *req-sizes* (make-hash-table :test 'eq)
   "Holds calculated size for uv req objects.")
 
-(defvar *handle-name-val* (make-hash-table :test 'eq)
-  "Holds handle handle type -> enum mappings.")
-(defvar *handle-val-name* (make-hash-table :test 'eq)
-  "Holds handle enum -> handle type mappings.")
-
 (defun alloc-uv-buf (pointer-to-c-buf size &optional uv-buf)
   "Allocate a ub_buf_t object. You'd think this was easy, but the commands that
    take a uv_buf_t expect pointers and the uv_buf_init() function returns a
    stack-allocated value. Don't know WTH is up with that (probably avoiding
    assuming we're using malloc or something).
-   
+
    Anyway, we abstract it here."
   (let* ((type '(:struct uv:uv-buf-t))
          (buf (or uv-buf (cffi:foreign-alloc type))))
@@ -101,25 +96,13 @@
 
 (defun handle-type (handle-ptr)
   "Given a libuv handle, return its type."
-  (handle-from-val (uv-a:uv-handle-s-type handle-ptr)))
-
-(defun handle-to-val (handle-keyword)
-  "Get a handle enuma val from its name."
-  (gethash handle-keyword *handle-name-val*))
-
-(defun handle-from-val (enumval)
-  "Get a handle name form its enuma val."
-  (gethash enumval *handle-val-name*))
+  (uv-a:uv-handle-s-type handle-ptr))
 
 (defun populate-sizes ()
   "Fill our hashes with size values for our handle/req classes."
-  (dolist (handle *handle-types*)
-    (let* ((key (intern (string-upcase (string handle)) :keyword))
-           (uvsym key)
-           (enumval (cffi:foreign-enum-value 'uv:uv-handle-type uvsym)))
-      (setf (gethash key *handle-sizes*) (uv:uv-handle-size enumval))
-      (setf (gethash key *handle-name-val*) enumval
-            (gethash enumval *handle-val-name*) key)))
+  (dolist (key (mapcar #'alexandria:make-keyword *handle-types*))
+    (let* ((enumval (cffi:foreign-enum-value 'uv:uv-handle-type key)))
+      (setf (gethash key *handle-sizes*) (uv:uv-handle-size enumval))))
   (dolist (req *req-types*)
     (let ((key (intern (string-upcase (string req)) :keyword))
           (uvsym (intern (string req) :keyword)))
@@ -127,4 +110,3 @@
 
 (eval-when (:load-toplevel)
   (populate-sizes))
-
