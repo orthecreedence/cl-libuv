@@ -11,8 +11,7 @@
   "Get an error constant value by its name keyword.
    
    So :etimedout gets the enum UV_ETIMEDOUT"
-  (let ((sym (intern (format nil "+UV-~a+" (string-upcase (string err))) :keyword)))
-    (cffi:foreign-enum-value 'uv:uv-errno-t sym)))
+  (cffi:foreign-enum-value 'uv:uv-errno-t err))
 
 (defparameter *handle-types*
   '(async
@@ -30,8 +29,7 @@
     timer
     tty
     udp
-    signal
-    file)
+    signal)
   "Enumerates our handle classes.")
     
 (defparameter *req-types*
@@ -117,14 +115,14 @@
   "Fill our hashes with size values for our handle/req classes."
   (dolist (handle *handle-types*)
     (let* ((key (intern (string-upcase (string handle)) :keyword))
-           (uvsym (intern (string-upcase (format nil "+uv-~a+" (string handle))) :keyword))
+           (uvsym key)
            (enumval (cffi:foreign-enum-value 'uv:uv-handle-type uvsym)))
       (setf (gethash key *handle-sizes*) (uv:uv-handle-size enumval))
       (setf (gethash key *handle-name-val*) enumval
             (gethash enumval *handle-val-name*) key)))
   (dolist (req *req-types*)
     (let ((key (intern (string-upcase (string req)) :keyword))
-          (uvsym (intern (string-upcase (format nil "+uv-~a+" (string req))) :keyword)))
+          (uvsym (intern (string req) :keyword)))
       (setf (gethash key *req-sizes*) (uv:uv-req-size (cffi:foreign-enum-value 'uv:uv-req-type uvsym))))))
 
 (eval-when (:load-toplevel)

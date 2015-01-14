@@ -10,8 +10,8 @@
   :serial t
   :components ((:file "package")
                (:file "lib")
-               (cffi-grovel:grovel-file "grovel")
                (:file "wrapper")
+               (cffi-grovel:grovel-file "grovel")
                (:file "bindings")
                (:file "exports")
                (:file "accessors")

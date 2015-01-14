@@ -26,6 +26,8 @@ cat bindings.lisp | \
 mv bindings2.lisp bindings.lisp
 
 sed -i 's|( *4095)|4095|' bindings.lisp
+sed -i 's|:long-long|size-t|g' bindings.lisp
+sed -i 's|:unsigned-long-long|ssize-t|g' bindings.lisp
 sed -i 's|uv_cpu_info_s_cpu_times|uv_cpu_info_s_cpu_times_s|' bindings.lisp
 sed -i 's|uv_signal_s_tree_entry|uv_signal_s_tree_entry_s|' bindings.lisp
 sed -i 's| #\.(lispify "\([0-9a-zA-Z_]\+\)" '"'"'classname))| #.(lispify "\1" '"'"'classname-wrap))|g' bindings.lisp
