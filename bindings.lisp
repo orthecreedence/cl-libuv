@@ -24,6 +24,9 @@
 	(#.(lispify "TCP_CA_Recovery" 'enumvalue :keyword) #.3)
 	(#.(lispify "TCP_CA_Loss" 'enumvalue :keyword) #.4))
 
+(cffi:defcenum #.(lispify "uv_loop_option" 'enumname)
+	#.(lispify "UV_LOOP_BLOCK_SIGNAL" 'enumvalue :keyword))
+
 (cffi:defcenum #.(lispify "uv_run_mode" 'enumname)
 	(#.(lispify "UV_RUN_DEFAULT" 'enumvalue :keyword) #.0)
 	#.(lispify "UV_RUN_ONCE" 'enumvalue :keyword)
@@ -50,6 +53,11 @@
 
 (cffi:defcfun ("uv_loop_alive" #.(lispify "uv_loop_alive" 'function)) :int
   (loop :pointer))
+
+(cffi:defcfun ("uv_loop_configure" #.(lispify "uv_loop_configure" 'function)) :int
+  (loop :pointer)
+  (option #.(lispify "uv_loop_option" 'enumname))
+  &rest)
 
 (cffi:defcfun ("uv_run" #.(lispify "uv_run" 'function)) :int
   (arg0 :pointer)
@@ -282,6 +290,11 @@
 (cffi:defcfun ("uv_udp_recv_stop" #.(lispify "uv_udp_recv_stop" 'function)) :int
   (handle :pointer))
 
+(cffi:defcenum #.(lispify "uv_tty_mode_t" 'enumname)
+	#.(lispify "UV_TTY_MODE_NORMAL" 'enumvalue :keyword)
+	#.(lispify "UV_TTY_MODE_RAW" 'enumvalue :keyword)
+	#.(lispify "UV_TTY_MODE_IO" 'enumvalue :keyword))
+
 (cffi:defcfun ("uv_tty_init" #.(lispify "uv_tty_init" 'function)) :int
   (arg0 :pointer)
   (arg1 :pointer)
@@ -290,7 +303,7 @@
 
 (cffi:defcfun ("uv_tty_set_mode" #.(lispify "uv_tty_set_mode" 'function)) :int
   (arg0 :pointer)
-  (mode :int))
+  (mode #.(lispify "uv_tty_mode_t" 'enumname)))
 
 (cffi:defcfun ("uv_tty_reset_mode" #.(lispify "uv_tty_reset_mode" 'function)) :int)
 
@@ -323,8 +336,13 @@
 
 (cffi:defcfun ("uv_pipe_getsockname" #.(lispify "uv_pipe_getsockname" 'function)) :int
   (handle :pointer)
-  (buf :string)
-  (len :pointer))
+  (buffer :string)
+  (size :pointer))
+
+(cffi:defcfun ("uv_pipe_getpeername" #.(lispify "uv_pipe_getpeername" 'function)) :int
+  (handle :pointer)
+  (buffer :string)
+  (size :pointer))
 
 (cffi:defcfun ("uv_pipe_pending_instances" #.(lispify "uv_pipe_pending_instances" 'function)) :void
   (handle :pointer)
@@ -786,8 +804,8 @@
 
 (cffi:defcfun ("uv_fs_poll_getpath" #.(lispify "uv_fs_poll_getpath" 'function)) :int
   (handle :pointer)
-  (buf :string)
-  (len :pointer))
+  (buffer :string)
+  (size :pointer))
 
 (cffi:defcstruct #.(lispify "uv_signal_s_tree_entry_s" 'classname)
 	(#.(lispify "rbe_left" 'slotname) :pointer)
@@ -825,8 +843,8 @@
 
 (cffi:defcfun ("uv_fs_event_getpath" #.(lispify "uv_fs_event_getpath" 'function)) :int
   (handle :pointer)
-  (buf :string)
-  (len :pointer))
+  (buffer :string)
+  (size :pointer))
 
 (cffi:defcfun ("uv_ip4_addr" #.(lispify "uv_ip4_addr" 'function)) :int
   (ip :string)
