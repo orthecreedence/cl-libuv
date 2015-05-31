@@ -1,12 +1,5 @@
 (in-package :libuv)
 
-(defconstant +af-unspec+ 0)
-(defconstant +af-unix+ 1)
-(defconstant +af-inet+ 2)
-(defconstant +af-inet-6+ 23)
-(defconstant +sock-stream+ 1)
-(defconstant +ipproto-tcp+ 6)
-
 (defun errval (err)
   "Get an error constant value by its name keyword.
 
