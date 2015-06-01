@@ -7,6 +7,16 @@
 (include "uv-errno.h")
 
 ;; -----------------------------------------------------------------------------
+;; constants
+;; -----------------------------------------------------------------------------
+(constant (+af-unspec+ "AF_UNSPEC"))
+(constant (+af-unix+ "AF_UNIX"))
+(constant (+af-inet+ "AF_INET"))
+(constant (+af-inet-6+ "AF_INET6"))
+(constant (+sock-stream+ "SOCK_STREAM"))
+(constant (+ipproto-tcp+ "IPPROTO_TCP"))
+
+;; -----------------------------------------------------------------------------
 ;; type mappings
 ;; -----------------------------------------------------------------------------
 (ctype ssize-t "ssize_t")
