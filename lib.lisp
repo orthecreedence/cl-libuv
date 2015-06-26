@@ -4,6 +4,7 @@
   (define-foreign-library libuv
     (:darwin (:or "libuv.dylib"))
     (:unix (:or "libuv.so"
+                "libuv.so.1"
                 "/usr/lib/libuv.so"
                 "/usr/local/lib/libuv.so"
                 ; brew's install of libevent on Mac OX X
