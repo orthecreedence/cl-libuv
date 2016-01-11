@@ -9,7 +9,9 @@
                 "/usr/local/lib/libuv.so"
                 ; brew's install of libevent on Mac OX X
                 "/usr/local/lib/libuv.dylib"))
-    (:windows (:or "libuv.dll"))
+    (:windows (:or "libuv.dll"
+                   ; msys2/mingw64's install of libuv
+                   "libuv-1.dll"))
     (t (:default "libuv")))
   (unless (foreign-library-loaded-p 'libuv)
     (use-foreign-library libuv)))
