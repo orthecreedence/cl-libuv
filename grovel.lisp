@@ -1,7 +1,13 @@
 (in-package :libuv)
 
 (cc-flags #+windows "-Ic:/include/"
-          #+windows "-Ic:/include/uv/")
+          #+windows "-Ic:/include/uv/"
+
+          ;; it would be better to use ...Cellar/libuv/*/include/ so as not to
+          ;; require a change for a version bump, but the arg parser doesn't
+          ;; let us have a space after -I, which the shell requires for the *
+          ;; expansion :-/
+          #+darwin "-I/usr/local/Cellar/libuv/1.7.5/include/")
 
 (include "uv.h")
 (include "uv-errno.h")
@@ -58,7 +64,7 @@
   (sin6-flowinfo "sin6_flowinfo" :type :uint32)
   (sin6-addr "sin6_addr" :type in6-addr)
   (sin6-scope-id "sin6_scope_id" :type :uint32))
-  
+
 (cstruct addrinfo "struct addrinfo"
   (ai-flags "ai_flags" :type :int)
   (ai-family "ai_family" :type :int)
@@ -305,7 +311,7 @@
 ;; TODO: figure out embedded struct/union syntax...
 ;(cstruct uv-stdio-container-t "uv_stdio_container_t"
 ;  ...)
-;  
+;
 ;(cstruct uv-cpu-info-s "struct uv_cpu_info_s"
 ;  ...)
 ;
@@ -477,4 +483,3 @@
   (type "type" :type uv-handle-type)
   (signal-cb "signal_cb" :type :pointer)
   (signum "signum" :type :int))
-
