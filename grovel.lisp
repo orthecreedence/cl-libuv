@@ -2,13 +2,7 @@
 
 (cc-flags #+windows "-Ic:/include/"
           #+windows "-Ic:/include/uv/"
-
-          ;; it would be better to use ...Cellar/libuv/*/include/ so as not to
-          ;; require a change for a version bump, but the arg parser doesn't
-          ;; let us have a space after -I, which the shell requires for the *
-          ;; expansion :-/
-          #+darwin "-I/usr/local/Cellar/libuv/1.7.5/include/"
-          #+darwin "-I/usr/local/Cellar/libuv/1.8.0/include/")
+          #+darwin "-I/usr/local/include/")
 
 (include "uv.h")
 (include "uv-errno.h")
