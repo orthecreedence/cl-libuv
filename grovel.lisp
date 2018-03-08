@@ -2,7 +2,7 @@
 
 (cc-flags #+windows "-Ic:/include/"
           #+windows "-Ic:/include/uv/"
-          #+darwin "-I/usr/local/include/")
+          #+(or darwin freebsd) "-I/usr/local/include/")
 
 (include "uv.h")
 (include "uv-errno.h")
