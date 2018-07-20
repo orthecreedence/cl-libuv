@@ -5,7 +5,6 @@
           #+(or darwin freebsd) "-I/usr/local/include/")
 
 (include "uv.h")
-(include "uv-errno.h")
 
 ;; -----------------------------------------------------------------------------
 ;; constants
