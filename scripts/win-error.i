@@ -37,6 +37,5 @@
 #define UV_SIGNAL_PRIVATE_FIELDS
 #define UV_LOOP_PRIVATE_FIELDS
 
-%include "/usr/local/include/uv-errno.h"
 %include "/usr/local/include/uv.h"
 
