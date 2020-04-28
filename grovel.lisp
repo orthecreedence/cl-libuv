@@ -50,13 +50,13 @@
 (cstruct sockaddr-in "struct sockaddr_in"
   (sin-family "sin_family" :type :short)
   (sin-port "sin_port" :type :unsigned-short)
-  (sin-addr "sin_addr" :type in-addr)
+  (sin-addr "sin_addr" :type (:struct in-addr))
   (sin-zero "sin_zero" :type :char :count 8))
 (cstruct sockaddr-in6 "struct sockaddr_in6"
   (sin6-family "sin6_family" :type :uint16)
   (sin6-port "sin6_port" :type :uint16)
   (sin6-flowinfo "sin6_flowinfo" :type :uint32)
-  (sin6-addr "sin6_addr" :type in6-addr)
+  (sin6-addr "sin6_addr" :type (:struct in6-addr))
   (sin6-scope-id "sin6_scope_id" :type :uint32))
 
 (cstruct addrinfo "struct addrinfo"
@@ -274,10 +274,10 @@
   (st-blocks "st_blocks" :type uint64-t)
   (st-flags "st_flags" :type uint64-t)
   (st-gen "st_gen" :type uint64-t)
-  (st-atim "st_atim" :type uv-timespec-t)
-  (st-mtim "st_mtim" :type uv-timespec-t)
-  (st-ctim "st_ctim" :type uv-timespec-t)
-  (st-birthtim "st_birthtim" :type uv-timespec-t))
+  (st-atim "st_atim" :type (:struct uv-timespec-t))
+  (st-mtim "st_mtim" :type (:struct uv-timespec-t))
+  (st-ctim "st_ctim" :type (:struct uv-timespec-t))
+  (st-birthtim "st_birthtim" :type (:struct uv-timespec-t)))
 
 (cstruct uv-loop-s "struct uv_loop_s"
   (data "data" :type :pointer)
@@ -373,7 +373,7 @@
   (result "result" :type ssize-t)
   (ptr "ptr" :type :pointer)
   (path "path" :type :string)
-  (statbuf "statbuf" :type uv-stat-t))
+  (statbuf "statbuf" :type (:struct uv-stat-t)))
 
 ;; -----------------------------------------------------------------------------
 ;; handles
