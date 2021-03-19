@@ -21,12 +21,12 @@
   (let ((makers nil))
     (do-symbols (sym :libuv)
       (let ((str (string sym)))
-        (when (and (zerop (or (search "UV-" str) -1))
-                   (or (string= "-S" (subseq str (- (length str) 2)))
-                       (string= "-T" (subseq str (- (length str) 2)))))
+        (when (and (zerop (or (search "UV-" str :test 'string-equal) -1))
+                   (or (string-equal "-S" (subseq str (- (length str) 2)))
+                       (string-equal "-T" (subseq str (- (length str) 2)))))
           (push
-            `(progn (make-accessors ,sym))
-            makers))))
+           `(progn (make-accessors ,sym))
+           makers))))
     `(progn ,@makers)))
 
 (eval-when (:compile-toplevel :load-toplevel)
