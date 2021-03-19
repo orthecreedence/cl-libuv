@@ -19,9 +19,14 @@
                           ((lower digit) (list* c #\- rest))
                           (t (cons c rest)))))
                ((lower-case-p c)
-                (helper (cdr lst) 'lower (cons (char-upcase c) rest)))
+                (helper (cdr lst)
+                        'lower
+                        (cons (case (readtable-case *readtable*)
+                                (:preserve c)
+                                (t (char-upcase c)))
+                              rest)))
                ((digit-char-p c)
-                (helper (cdr lst) 'digit 
+                (helper (cdr lst) 'digit
                         (case last
                           ((upper lower) (list* c #\- rest))
                           (t (cons c rest)))))
@@ -47,7 +52,7 @@
       (when (eq flag 'enumvalue)
         (setf fix ""))
       (process (intern (concatenate 'string fix (nreverse (helper (concatenate 'list (strip-prefix "uv_" name)) nil nil)) fix)
-        package)))))
+                       package)))))
 
 (defun version<= (str-version str-cmp)
   (declare (ignore str-version str-cmp))

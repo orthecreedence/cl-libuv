@@ -16,6 +16,6 @@
 
 (eval-when (:compile-toplevel :load-toplevel)
   (do-symbols (sym :libuv)
-    (when (zerop (or (search "UV-" (string sym)) -1))
+    (when (zerop (or (search "UV-" (string sym) :test 'string-equal) -1))
       (export sym))))
 
