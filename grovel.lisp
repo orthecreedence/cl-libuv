@@ -1,8 +1,15 @@
 (in-package :libuv)
 
+#.(when (uiop:getenv "HOMEBREW_PREFIX")
+    (pushnew :homebrew *features*)
+    (values))
+
 (cc-flags #+windows "-Ic:/include/"
           #+windows "-Ic:/include/uv/"
-          #+(or darwin freebsd openbsd) "-I/usr/local/include/")
+          #+(or darwin freebsd openbsd) "-I/usr/local/include/"
+          #+homebrew
+          #.(concatenate 'string "-I" (uiop:getenv "HOMEBREW_PREFIX") "/include/")
+          )
 
 (include "uv.h")
 
