@@ -1,4 +1,6 @@
 (cl:eval-when (:load-toplevel :execute)
+  (when (uiop:getenv "HOMEBREW_PREFIX")
+    (pushnew :homebrew *features*))
   (asdf:operate 'asdf:load-op 'cffi-grovel))
 
 (asdf:defsystem cl-libuv-config
